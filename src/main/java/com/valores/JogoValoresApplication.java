@@ -1,0 +1,15 @@
+package com.valores;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+
+@SpringBootApplication
+@EnableMongoRepositories
+public class JogoValoresApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(JogoValoresApplication.class, args);
+	}
+
+}
