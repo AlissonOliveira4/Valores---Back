@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -22,9 +23,25 @@ public class UserRepositoryCustom {
         Query query = new Query();
         query.addCriteria(Criteria.where("nome").is(nome));
 
+        User existingUser = mongoTemplate.findOne(query, User.class);
+
+        if (existingUser == null) {
+            System.out.println("Nenhum usuário encontrado com o nome: " + nome);
+            return null; // Ou lance uma exceção, dependendo da sua necessidade
+        }
+
+        boolean isTempoMaior = LocalTime.parse(user.getTempo()).isAfter(LocalTime.parse(existingUser.getTempo()));;
+
         Update update = new Update();
-        update.set("pontos", user.getPontos());
-        update.set("tempo", user.getTempo());
+
+        if (user.getPontos() > existingUser.getPontos()) {
+            update.set("pontos", user.getPontos());
+            update.set("tempo", user.getTempo());
+        } else if (user.getPontos() == existingUser.getPontos() && isTempoMaior){
+            update.set("tempo", user.getTempo());
+        } else {
+            return null;
+        }
 
         return mongoTemplate.findAndModify(query, update, User.class);
     }
