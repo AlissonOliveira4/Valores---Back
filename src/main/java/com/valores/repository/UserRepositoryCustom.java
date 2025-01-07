@@ -1,6 +1,7 @@
 package com.valores.repository;
 
 import com.valores.entity.User;
+import com.valores.exception.NotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -27,7 +28,7 @@ public class UserRepositoryCustom {
 
         if (existingUser == null) {
             System.out.println("Nenhum usuário encontrado com o nome: " + nome);
-            return null; // Ou lance uma exceção, dependendo da sua necessidade
+            throw new NotFoundException("User não encontrado!");
         }
 
         boolean isTempoMaior = LocalTime.parse(user.getTempo()).isAfter(LocalTime.parse(existingUser.getTempo()));;
