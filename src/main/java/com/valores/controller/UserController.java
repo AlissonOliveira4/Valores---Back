@@ -10,7 +10,7 @@ import java.util.List;
 
 @CrossOrigin(origins = {"http://127.0.0.1:5500", "https://valores-front.onrender.com" })
 @RestController
-@RequestMapping("/valores")
+@RequestMapping("/user")
 public class UserController {
 
     private final SaveUserInputPort saveInputPort;
