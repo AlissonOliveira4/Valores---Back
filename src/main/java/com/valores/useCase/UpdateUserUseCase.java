@@ -19,10 +19,12 @@ public class UpdateUserUseCase implements UpdateUserInputPort {
     }
 
     public String update(User user, String nome) {
-
-        if (updateUserOutputPort.updateUser(user, nome)) {
-            return nome + " foi atualizado com sucesso!";
+        if (user != null && nome != null){
+            if (updateUserOutputPort.updateUser(user, nome)) {
+                return nome + " foi atualizado com sucesso!";
+            }
+            return nome + " não foi atualizado com sucesso!";
         }
-        return nome + " não foi atualizado com sucesso!";
+        return "Alguma variável é null!";
     }
 }

@@ -31,7 +31,7 @@ public class UserRepositoryCustom {
             throw new NotFoundException("User não encontrado!");
         }
 
-        boolean isTempoMaior = LocalTime.parse(user.getTempo()).isAfter(LocalTime.parse(existingUser.getTempo()));;
+        boolean isTempoMaior = LocalTime.parse(user.getTempo()).isAfter(LocalTime.parse(existingUser.getTempo()));
 
         Update update = new Update();
 
