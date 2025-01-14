@@ -21,6 +21,8 @@ public class UserRepositoryCustom {
 
     public User updateUserByNome(String nome, User user) {
 
+        System.out.println(nome);
+
         Query query = new Query();
         query.addCriteria(Criteria.where("nome").is(nome));
 
@@ -29,6 +31,10 @@ public class UserRepositoryCustom {
         if (existingUser == null) {
             System.out.println("Nenhum usuário encontrado com o nome: " + nome);
             throw new NotFoundException("User não encontrado!");
+        }
+
+        if (existingUser.getTempo() == null){
+            existingUser.setTempo("00:00:00");
         }
 
         boolean isTempoMaior = LocalTime.parse(user.getTempo()).isAfter(LocalTime.parse(existingUser.getTempo()));

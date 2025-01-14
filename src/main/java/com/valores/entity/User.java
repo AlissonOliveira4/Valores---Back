@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalTime;
 
@@ -19,6 +20,7 @@ public class User {
     @Id
     private String id;
 
+    @Field("nome")
     @Indexed(unique = true)
     private String nome;
 
