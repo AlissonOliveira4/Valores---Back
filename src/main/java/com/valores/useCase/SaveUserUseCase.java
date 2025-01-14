@@ -29,9 +29,7 @@ public class SaveUserUseCase implements SaveUserInputPort {
         User user1 = fetchUserOutputPort.fetchUser(user.getNome());
 
         if (user1 != null){
-            if (user.getPontos() < user1.getPontos()){
-                return "User já existente!!!";
-            }
+            return "User já existente!!!";
         }
 
         if (saveUserOutputPort.save(user)) {
