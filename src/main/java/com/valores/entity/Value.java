@@ -10,11 +10,13 @@ public class Value {
     private String nome;
     private String frase;
     private List<Question> perguntas;
+    private String exemplo;
 
-    public Value(String nome, String frase, List<Question> perguntas) {
+    public Value(String nome, String frase, List<Question> perguntas, String exemplo) {
         this.nome = nome;
         this.frase = frase;
         this.perguntas = perguntas;
+        this.exemplo = exemplo;
     }
 
     public String getNome() {
@@ -39,6 +41,14 @@ public class Value {
 
     public void setPerguntas(List<Question> perguntas) {
         this.perguntas = perguntas;
+    }
+
+    public String getExemplo() {
+        return this.exemplo;
+    }
+
+    public void setExemplo(String exemplo) {
+        this.exemplo = exemplo;
     }
 
     public static class Question {
