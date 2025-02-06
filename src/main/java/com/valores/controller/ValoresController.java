@@ -5,7 +5,7 @@ import com.valores.ports.input.FetchValueInputPort;
 import com.valores.ports.input.SaveValueInputPort;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = {"http://127.0.0.1:5500", "https://valores-front.onrender.com", "http://localhost:3000", "https://jogo-valores-react.onrender.com" })
+@CrossOrigin(origins = {"http://127.0.0.1:5500", "https://valores-front.onrender.com", "http://localhost:3000", "https://jogo-valores-react.onrender.com", "http://localhost:4200" })
 @RestController
 @RequestMapping("/valores")
 public class ValoresController {
