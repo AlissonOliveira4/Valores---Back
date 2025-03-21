@@ -4,6 +4,7 @@ import com.valores.entity.User;
 import com.valores.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.jeasy.random.EasyRandom;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,12 +23,17 @@ public class SaveUserAdapterTest {
     @Mock
     private UserRepository userRepository;
 
-    private EasyRandom easyRandom = new EasyRandom();
+    private EasyRandom easyRandom;
+    private User user;
+
+    @BeforeEach
+    void setUp() {
+        easyRandom = new EasyRandom();
+        user = easyRandom.nextObject(User.class);
+    }
 
     @Test
     void should_save_user_with_sucess() {
-
-        var user = easyRandom.nextObject(User.class);
 
         when(userRepository.save(any())).thenReturn(user);
 
@@ -41,8 +47,6 @@ public class SaveUserAdapterTest {
 
     @Test
     void should_save_user_failed() {
-
-        var user = easyRandom.nextObject(User.class);
 
         when(userRepository.save(user)).thenReturn(null);
 

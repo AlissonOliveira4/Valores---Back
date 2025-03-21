@@ -5,6 +5,7 @@ import com.valores.entity.Value;
 import com.valores.repository.ValueRepository;
 import org.assertj.core.api.Assertions;
 import org.jeasy.random.EasyRandom;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,12 +24,17 @@ public class FetchValueAdapterTest {
     @Mock
     private ValueRepository valueRepository;
 
-    private EasyRandom easyRandom = new EasyRandom();
+    private EasyRandom easyRandom;
+    private Value value;
+
+    @BeforeEach
+    void setUp() {
+        easyRandom = new EasyRandom();
+        value = easyRandom.nextObject(Value.class);
+    }
 
     @Test
     void should_fetch_value_with_sucess() {
-
-        var value = easyRandom.nextObject(Value.class);
 
         when(valueRepository.findByNome("a")).thenReturn(value);
 

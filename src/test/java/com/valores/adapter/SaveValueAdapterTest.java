@@ -4,6 +4,7 @@ import com.valores.entity.Value;
 import com.valores.repository.ValueRepository;
 import org.assertj.core.api.Assertions;
 import org.jeasy.random.EasyRandom;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,12 +23,17 @@ public class SaveValueAdapterTest {
     @Mock
     private ValueRepository valueRepository;
 
-    private EasyRandom easyRandom = new EasyRandom();
+    private EasyRandom easyRandom;
+    private Value value;
+
+    @BeforeEach
+    void setUp() {
+        easyRandom = new EasyRandom();
+        value = easyRandom.nextObject(Value.class);
+    }
 
     @Test
     void should_save_value_with_sucess() {
-
-        var value = easyRandom.nextObject(Value.class);
 
         when(valueRepository.save(any())).thenReturn(value);
 
@@ -41,8 +47,6 @@ public class SaveValueAdapterTest {
 
     @Test
     void should_save_value_failed() {
-
-        var value = easyRandom.nextObject(Value.class);
 
         when(valueRepository.save(any())).thenReturn(null);
 

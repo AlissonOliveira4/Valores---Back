@@ -4,6 +4,7 @@ import com.valores.entity.Value;
 import com.valores.ports.output.FetchValueOutputPort;
 import org.assertj.core.api.Assertions;
 import org.jeasy.random.EasyRandom;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,12 +23,17 @@ public class FetchValueUseCaseTest {
     @Mock
     private FetchValueOutputPort fetchValue;
 
-    private final EasyRandom easyRandom = new EasyRandom();
+    private EasyRandom easyRandom;
+    private Value value;
+
+    @BeforeEach
+    void setUp() {
+        easyRandom = new EasyRandom();
+        value = easyRandom.nextObject(Value.class);
+    }
 
     @Test
     void should_get_value() {
-
-        var value = easyRandom.nextObject(Value.class);
 
         when(fetchValue.getValue(value.getNome())).thenReturn(value);
 

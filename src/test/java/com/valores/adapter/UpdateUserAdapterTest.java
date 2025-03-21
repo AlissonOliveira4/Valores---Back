@@ -4,6 +4,7 @@ import com.valores.entity.User;
 import com.valores.repository.UserRepositoryCustom;
 import org.assertj.core.api.Assertions;
 import org.jeasy.random.EasyRandom;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,12 +22,17 @@ public class UpdateUserAdapterTest {
     @Mock
     private UserRepositoryCustom userRepository;
 
-    private EasyRandom easyRandom = new EasyRandom();
+    private EasyRandom easyRandom;
+    private User user;
+
+    @BeforeEach
+    void setUp() {
+        easyRandom = new EasyRandom();
+        user = easyRandom.nextObject(User.class);
+    }
 
     @Test
     void should_update_user_with_sucess() {
-
-        var user = easyRandom.nextObject(User.class);
 
         when(userRepository.updateUserByNome(user.getNome(), user)).thenReturn(user);
 
@@ -40,7 +46,6 @@ public class UpdateUserAdapterTest {
 
     @Test
     void should_update_user_failed() {
-        var user = easyRandom.nextObject(User.class);
 
         when(userRepository.updateUserByNome(user.getNome(), user)).thenReturn(null);
 

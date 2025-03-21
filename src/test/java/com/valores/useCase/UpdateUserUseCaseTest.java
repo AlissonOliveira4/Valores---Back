@@ -5,6 +5,7 @@ import com.valores.exception.NullPointerException;
 import com.valores.ports.output.UpdateUserOutputPort;
 import org.assertj.core.api.Assertions;
 import org.jeasy.random.EasyRandom;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,12 +24,17 @@ public class UpdateUserUseCaseTest {
     @Mock
     private UpdateUserOutputPort updateUser;
 
-    private final EasyRandom easyRandom = new EasyRandom();
+    private EasyRandom easyRandom;
+    private User user;
+
+    @BeforeEach
+    void setUp() {
+        easyRandom = new EasyRandom();
+        user = easyRandom.nextObject(User.class);
+    }
 
     @Test
     void should_update_user_with_sucess() {
-
-        var user = easyRandom.nextObject(User.class);
 
         when(updateUser.updateUser(user, user.getNome())).thenReturn(true);
 
@@ -41,8 +47,6 @@ public class UpdateUserUseCaseTest {
 
     @Test
     void should_not_update_user() {
-
-        var user = easyRandom.nextObject(User.class);
 
         when(updateUser.updateUser(user, user.getNome())).thenReturn(false);
 

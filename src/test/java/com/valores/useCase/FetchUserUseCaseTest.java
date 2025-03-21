@@ -4,6 +4,7 @@ import com.valores.entity.User;
 import com.valores.ports.output.FetchUserOutputPort;
 import org.assertj.core.api.Assertions;
 import org.jeasy.random.EasyRandom;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,12 +25,17 @@ public class FetchUserUseCaseTest {
     @Mock
     private FetchUserOutputPort fetchUserOutputPort;
 
-    private final EasyRandom easyRandom = new EasyRandom();
+    private EasyRandom easyRandom;
+    private List<User> users;
+
+    @BeforeEach
+    void setUp() {
+        easyRandom = new EasyRandom();
+        users = easyRandom.objects(User.class, 10).toList();
+    }
 
     @Test
     void should_return_top10_users() {
-
-        List<User> users = easyRandom.objects(User.class, 10).toList();
 
         when(fetchUserOutputPort.top10Users()).thenReturn(users);
 

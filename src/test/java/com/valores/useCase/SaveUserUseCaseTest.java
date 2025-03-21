@@ -7,6 +7,7 @@ import com.valores.ports.output.FetchUserOutputPort;
 import com.valores.ports.output.SaveUserOutputPort;
 import org.assertj.core.api.Assertions;
 import org.jeasy.random.EasyRandom;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,12 +30,17 @@ public class SaveUserUseCaseTest {
     @Mock
     private FetchUserOutputPort fetchUser;
 
-    private final EasyRandom easyRandom = new EasyRandom();
+    private EasyRandom easyRandom;
+    private User user;
+
+    @BeforeEach
+    void setUp() {
+        easyRandom = new EasyRandom();
+        user = easyRandom.nextObject(User.class);
+    }
 
     @Test
     void should_save_user_with_success() {
-
-        var user = easyRandom.nextObject(User.class);
 
         when(fetchUser.fetchUser(any())).thenReturn(null);
 
@@ -50,8 +56,7 @@ public class SaveUserUseCaseTest {
 
     @Test
     void should_save_user_with_name_null() {
-
-        var user = new User(null, 15, "15/03/2025");
+        user.setNome(null);
 
         var exception = assertThrows(NullPointerException.class, () -> {
             saveUserUseCase.saveUser(user);
@@ -63,8 +68,6 @@ public class SaveUserUseCaseTest {
 
     @Test
     void should_save_user_existent() {
-
-        var user = easyRandom.nextObject(User.class);
 
         when(fetchUser.fetchUser(any())).thenReturn(user);
 
@@ -79,7 +82,6 @@ public class SaveUserUseCaseTest {
 
     @Test
     void should_not_save_user() {
-        var user = easyRandom.nextObject(User.class);
 
         when(fetchUser.fetchUser(any())).thenReturn(null);
 
