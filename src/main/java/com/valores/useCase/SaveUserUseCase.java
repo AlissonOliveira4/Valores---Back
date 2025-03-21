@@ -1,35 +1,33 @@
 package com.valores.useCase;
 
 import com.valores.entity.User;
+import com.valores.exception.AlreadyExistsException;
+import com.valores.exception.NullPointerException;
 import com.valores.ports.input.SaveUserInputPort;
 import com.valores.ports.output.FetchUserOutputPort;
-import com.valores.ports.output.SaveOutputPort;
+import com.valores.ports.output.SaveUserOutputPort;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalTime;
 
 @Service
 public class SaveUserUseCase implements SaveUserInputPort {
 
-    private final SaveOutputPort saveUserOutputPort;
+    private final SaveUserOutputPort saveUserOutputPort;
 
     private final FetchUserOutputPort fetchUserOutputPort;
 
-    public SaveUserUseCase(SaveOutputPort saveOutputPort, FetchUserOutputPort fetchUserOutputPort) {
-        this.saveUserOutputPort = saveOutputPort;
+    public SaveUserUseCase(SaveUserOutputPort saveUserOutputPort, FetchUserOutputPort fetchUserOutputPort) {
+        this.saveUserOutputPort = saveUserOutputPort;
         this.fetchUserOutputPort = fetchUserOutputPort;
     }
 
     public String saveUser(User user){
 
         if (user.getNome() == null){
-            return "Nome é vazio!";
+            throw new NullPointerException("Nome é vazio!");
         }
 
-        User user1 = fetchUserOutputPort.fetchUser(user.getNome());
-
-        if (user1 != null){
-            return "User já existente!!!";
+        if (fetchUserOutputPort.fetchUser(user.getNome()) != null){
+            throw new AlreadyExistsException("User já existente!");
         }
 
         if (saveUserOutputPort.save(user)) {

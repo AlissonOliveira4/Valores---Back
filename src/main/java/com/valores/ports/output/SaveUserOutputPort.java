@@ -2,7 +2,7 @@ package com.valores.ports.output;
 
 import com.valores.entity.User;
 
-public interface SaveOutputPort {
+public interface SaveUserOutputPort {
 
     boolean save(User user);
 

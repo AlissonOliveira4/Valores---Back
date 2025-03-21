@@ -1,13 +1,13 @@
 package com.valores.adapter;
 
 import com.valores.entity.User;
-import com.valores.ports.output.SaveOutputPort;
+import com.valores.ports.output.SaveUserOutputPort;
 import com.valores.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SaveUserAdapter implements SaveOutputPort {
+public class SaveUserAdapter implements SaveUserOutputPort {
 
     private final UserRepository userRepository;
 

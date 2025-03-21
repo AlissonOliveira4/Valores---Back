@@ -1,6 +1,7 @@
 package com.valores.useCase;
 
 import com.valores.entity.User;
+import com.valores.exception.NullPointerException;
 import com.valores.ports.input.UpdateUserInputPort;
 import com.valores.ports.output.UpdateUserOutputPort;
 import org.bson.internal.BsonUtil;
@@ -23,8 +24,8 @@ public class UpdateUserUseCase implements UpdateUserInputPort {
             if (updateUserOutputPort.updateUser(user, nome)) {
                 return nome + " foi atualizado com sucesso!";
             }
-            return nome + " não foi atualizado com sucesso!";
+            return nome + " não foi atualizado!";
         }
-        return "Alguma variável é null!";
+        throw new NullPointerException("Alguma variável é null!");
     }
 }
